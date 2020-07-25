@@ -7,19 +7,16 @@ $("#members-link").on("click", function () {
   });
 
   promise.then((members) => {
-    let html = "";
+    let fragment = document.createDocumentFragment();
 
-    // vulnerable to Cross-site Scripting (XSS) attacks
     members.forEach((member) => {
-      html += `
-        <img
-          src="${member.avatar_url}"
-          alt="image of ${member.login}"
-          width="150">
-      `;
+      let img = document.createElement("img");
+      img.src = member.avatar_url;
+      img.width = 150;
+      img.alt = `image of ${member.login}`;
+      fragment.append(img);
     });
 
-    let sanitizedHtml = DOMPurify.sanitize(html);
-    $("#results").html(sanitizedHtml);
+    $("#results").html(fragment);
   });
 });
