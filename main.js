@@ -9,13 +9,8 @@ $("#members-link").on("click", function () {
   promise.then((members) => {
     let html = "";
 
-<<<<<<< HEAD
     // vulnerable to Cross-site Scripting (XSS) attacks
     members.forEach((member) => {
-=======
-    // Example 1: vulnerable to Cross-site Scripting (XSS) attacks
-    members.forEach(function (member) {
->>>>>>> 4bda184... 1. Rendering data from an Ajax request
       html += `
         <img
           src="${member.avatar_url}"
@@ -24,6 +19,7 @@ $("#members-link").on("click", function () {
       `;
     });
 
-    $("#results").html(html);
+    let sanitizedHtml = DOMPurify.sanitize(html);
+    $("#results").html(sanitizedHtml);
   });
 });
