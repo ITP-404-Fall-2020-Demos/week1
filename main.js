@@ -1,4 +1,18 @@
-$("#members-link").on("click", function () {
+window.addEventListener("hashchange", render);
+
+render();
+
+function render() {
+  const { hash } = window.location;
+
+  if (hash === "#members") {
+    members();
+  } else if (hash === "#repos") {
+    repos();
+  }
+}
+
+function members() {
   $("#results").html("Loading...");
 
   let promise = $.ajax({
@@ -19,9 +33,9 @@ $("#members-link").on("click", function () {
 
     $("#results").html(fragment);
   });
-});
+}
 
-$("#repos-link").on("click", function () {
+function repos() {
   $("#results").html("Loading...");
 
   let promise = $.ajax({
@@ -47,4 +61,4 @@ $("#repos-link").on("click", function () {
 
     $("#results").html(fragment);
   });
-});
+}
